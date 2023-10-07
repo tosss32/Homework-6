@@ -33,7 +33,7 @@ registered_extensions = {
     "AMR": audio_files,
     "GZ": archive_files,
     "TAR": archive_files,
-    "ZIP": archive_files
+    "ZIP": archive_files,
 }
 
 
@@ -44,13 +44,20 @@ def get_extensions(file_name):
 def scan(folder):
     for item in folder.iterdir():
         if item.is_dir():
-            if item.name not in ("Images", "Videos", "Audios", "Documents", "Archives", "Unknown"):
+            if item.name not in (
+                "Images",
+                "Videos",
+                "Audios",
+                "Documents",
+                "Archives",
+                "Unknown",
+            ):
                 folders.append(item)
                 scan(item)
             continue
 
         extension = get_extensions(file_name=item.name)
-        new_name = folder/item.name
+        new_name = folder / item.name
         if not extension:
             unknown_files.append(new_name)
         else:
@@ -63,7 +70,7 @@ def scan(folder):
                 unknown_files.append(new_name)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     path = sys.argv[1]
     print(f"Start in {path}")
 
